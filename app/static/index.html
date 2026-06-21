@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Shortener — Dashboard</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">✂️</span>
+      <h1>Shortener</h1>
+    </div>
+    <button id="theme-toggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+      <span class="theme-icon">🌙</span>
+    </button>
+  </header>
+
+  <main class="container">
+    <section class="card create-card">
+      <h2>Create short link</h2>
+      <form id="shorten-form" class="shorten-form">
+        <div class="field full">
+          <label for="url">Long URL</label>
+          <input type="url" id="url" name="url" placeholder="https://example.com/very/long/path" required />
+        </div>
+        <div class="field">
+          <label for="alias">Custom alias <span class="muted">(optional)</span></label>
+          <input type="text" id="alias" name="alias" placeholder="my-link" pattern="[A-Za-z0-9_-]+" />
+        </div>
+        <div class="field">
+          <label for="ttl">TTL <span class="muted">(optional)</span></label>
+          <select id="ttl" name="ttl">
+            <option value="">Never expires</option>
+            <option value="3600">1 hour</option>
+            <option value="86400">1 day</option>
+            <option value="604800">7 days</option>
+            <option value="2592000">30 days</option>
+          </select>
+        </div>
+        <button type="submit" class="btn primary">Shorten</button>
+      </form>
+      <div id="create-result" class="create-result hidden"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>Your links</h2>
+        <button id="refresh" class="btn ghost">↻ Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table class="links-table">
+          <thead>
+            <tr>
+              <th>Short</th>
+              <th>Destination</th>
+              <th>Clicks</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="links-body">
+            <tr><td colspan="6" class="empty">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="analytics" class="card analytics hidden">
+      <div class="section-head">
+        <h2>Analytics — <span id="analytics-code" class="mono"></span></h2>
+        <button id="close-analytics" class="btn ghost">✕ Close</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><span class="stat-value" id="stat-total">0</span><span class="stat-label">Total clicks</span></div>
+        <div class="stat"><span class="stat-value" id="stat-unique">0</span><span class="stat-label">Unique visitors</span></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-box wide"><h3>Clicks over time</h3><canvas id="chart-timeseries"></canvas></div>
+        <div class="chart-box"><h3>Top referrers</h3><canvas id="chart-referrers"></canvas></div>
+        <div class="chart-box"><h3>Devices</h3><canvas id="chart-devices"></canvas></div>
+        <div class="chart-box"><h3>Countries</h3><canvas id="chart-countries"></canvas></div>
+        <div class="chart-box"><h3>Browsers</h3><canvas id="chart-browsers"></canvas></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
