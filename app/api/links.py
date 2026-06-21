@@ -48,16 +48,16 @@ async def shorten(
 ) -> LinkOut:
     try:
         link = await links_service.create_link(session, payload)
-    except links_service.AliasTakenError:
+    except links_service.AliasTakenError as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="This alias is already taken.",
-        )
-    except links_service.shortcode.CodeGenerationError:
+        ) from exc
+    except links_service.shortcode.CodeGenerationError as exc:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Could not allocate a short code, please retry.",
-        )
+        ) from exc
     return _to_link_out(link)
 
 
@@ -91,8 +91,8 @@ async def get_link(
 ) -> LinkOut:
     try:
         link = await links_service.get_link(session, code)
-    except links_service.LinkNotFoundError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found")
+    except links_service.LinkNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found") from exc
     return _to_link_out(link)
 
 
@@ -108,8 +108,8 @@ async def link_analytics(
 ) -> LinkAnalytics:
     try:
         link = await links_service.get_link(session, code)
-    except links_service.LinkNotFoundError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found")
+    except links_service.LinkNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found") from exc
 
     bundle = await analytics_service.build_analytics(session, link, days=days)
     return LinkAnalytics(
@@ -117,10 +117,10 @@ async def link_analytics(
         total_clicks=bundle.total_clicks,
         unique_visitors=bundle.unique_visitors,
         timeseries=[TimeseriesPoint(bucket=b, clicks=c) for b, c in bundle.timeseries],
-        top_referrers=[LabelCount(label=l, count=c) for l, c in bundle.top_referrers],
-        devices=[LabelCount(label=l, count=c) for l, c in bundle.devices],
-        browsers=[LabelCount(label=l, count=c) for l, c in bundle.browsers],
-        countries=[LabelCount(label=l, count=c) for l, c in bundle.countries],
+        top_referrers=[LabelCount(label=label, count=c) for label, c in bundle.top_referrers],
+        devices=[LabelCount(label=label, count=c) for label, c in bundle.devices],
+        browsers=[LabelCount(label=label, count=c) for label, c in bundle.browsers],
+        countries=[LabelCount(label=label, count=c) for label, c in bundle.countries],
     )
 
 
@@ -135,8 +135,8 @@ async def deactivate(
 ) -> LinkOut:
     try:
         link = await links_service.set_active(session, code, active=False)
-    except links_service.LinkNotFoundError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found")
+    except links_service.LinkNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found") from exc
     return _to_link_out(link)
 
 
@@ -151,8 +151,8 @@ async def activate(
 ) -> LinkOut:
     try:
         link = await links_service.set_active(session, code, active=True)
-    except links_service.LinkNotFoundError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found")
+    except links_service.LinkNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found") from exc
     return _to_link_out(link)
 
 
@@ -167,6 +167,6 @@ async def delete_link(
 ) -> MessageResponse:
     try:
         await links_service.delete_link(session, code)
-    except links_service.LinkNotFoundError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found")
+    except links_service.LinkNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found") from exc
     return MessageResponse(detail="deleted")

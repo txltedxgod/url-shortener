@@ -47,7 +47,7 @@ class Link(Base):
     # Denormalised counter for cheap reads; analytics rows remain the source of truth.
     click_count: Mapped[int] = mapped_column(BigInteger, default=0, nullable=False)
 
-    clicks: Mapped[list["Click"]] = relationship(
+    clicks: Mapped[list[Click]] = relationship(
         back_populates="link",
         cascade="all, delete-orphan",
         passive_deletes=True,
@@ -61,7 +61,7 @@ class Link(Base):
     def is_expired(self) -> bool:
         if self.expires_at is None:
             return False
-        return self.expires_at <= dt.datetime.now(dt.timezone.utc)
+        return self.expires_at <= dt.datetime.now(dt.UTC)
 
     def __repr__(self) -> str:  # pragma: no cover - debug helper
         return f"<Link code={self.code!r} active={self.is_active}>"
@@ -96,7 +96,7 @@ class Click(Base):
     country_code: Mapped[str | None] = mapped_column(String(8), nullable=True)
     city: Mapped[str | None] = mapped_column(String(120), nullable=True)
 
-    link: Mapped["Link"] = relationship(back_populates="clicks")
+    link: Mapped[Link] = relationship(back_populates="clicks")
 
     __table_args__ = (
         Index("ix_clicks_link_created", "link_id", "created_at"),

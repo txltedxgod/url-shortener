@@ -29,8 +29,8 @@ async def link_qr(
 ) -> Response:
     try:
         await links_service.get_link(session, code)
-    except links_service.LinkNotFoundError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found")
+    except links_service.LinkNotFoundError as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link not found") from exc
 
     qr = qrcode.QRCode(
         version=None,

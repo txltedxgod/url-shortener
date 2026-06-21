@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import datetime as dt
-import json
 
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
@@ -29,7 +28,7 @@ class LinkNotFoundError(Exception):
 async def create_link(session: AsyncSession, payload: ShortenRequest) -> Link:
     expires_at: dt.datetime | None = None
     if payload.ttl_seconds:
-        expires_at = dt.datetime.now(dt.timezone.utc) + dt.timedelta(
+        expires_at = dt.datetime.now(dt.UTC) + dt.timedelta(
             seconds=payload.ttl_seconds
         )
 
@@ -93,7 +92,7 @@ async def resolve_code(session: AsyncSession, code: str) -> str | None:
     ttl = settings.cache_ttl_seconds
     if link.expires_at is not None:
         remaining = int(
-            (link.expires_at - dt.datetime.now(dt.timezone.utc)).total_seconds()
+            (link.expires_at - dt.datetime.now(dt.UTC)).total_seconds()
         )
         if remaining <= 0:
             return None

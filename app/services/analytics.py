@@ -4,7 +4,7 @@ from __future__ import annotations
 import datetime as dt
 from dataclasses import dataclass
 
-from sqlalchemy import case, func, select, update
+from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import SessionFactory
@@ -95,7 +95,7 @@ async def build_analytics(
     bucket: str = "day",
 ) -> AnalyticsBundle:
     """Aggregate analytics for a single link over a time window."""
-    since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)
+    since = dt.datetime.now(dt.UTC) - dt.timedelta(days=days)
     base = select(Click).where(
         Click.link_id == link.id, Click.created_at >= since
     ).subquery()
