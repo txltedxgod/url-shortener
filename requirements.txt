@@ -1,0 +1,28 @@
+# --- Web framework / ASGI ---
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# --- DB layer ---
+SQLAlchemy[asyncio]==2.0.36
+asyncpg==0.30.0
+psycopg[binary]==3.2.3
+alembic==1.14.0
+greenlet==3.1.1
+
+# --- Cache / rate limiting ---
+redis==5.2.1
+
+# --- Validation / settings ---
+pydantic==2.10.4
+pydantic-settings==2.7.1
+email-validator==2.2.0
+
+# --- Analytics helpers ---
+user-agents==2.2.0
+geoip2==4.8.0
+
+# --- QR codes ---
+qrcode[pil]==8.0
+
+# --- Misc ---
+orjson==3.10.13
