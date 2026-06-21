@@ -5,6 +5,7 @@ the resolver silently returns empty geo data. This keeps the service runnable
 out of the box while allowing full geo analytics in production by mounting a
 GeoLite2-City.mmdb file and setting GEOIP_DB_PATH.
 """
+
 from __future__ import annotations
 
 import ipaddress

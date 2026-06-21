@@ -3,6 +3,7 @@
 A single shared async client is created on startup and reused everywhere
 (connection pooling is handled internally by redis-py).
 """
+
 from __future__ import annotations
 
 from redis.asyncio import Redis, from_url
@@ -44,6 +45,7 @@ async def close_redis() -> None:
 
 
 # --- Cache key helpers -------------------------------------------------------
+
 
 def cache_key(code: str) -> str:
     return f"link:{code}"

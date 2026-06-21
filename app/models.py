@@ -1,4 +1,5 @@
 """SQLAlchemy ORM models."""
+
 from __future__ import annotations
 
 import datetime as dt
@@ -27,9 +28,7 @@ class Link(Base):
     code: Mapped[str] = mapped_column(String(64), unique=True, nullable=False, index=True)
     original_url: Mapped[str] = mapped_column(Text, nullable=False)
     is_custom_alias: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    is_active: Mapped[bool] = mapped_column(
-        Boolean, default=True, nullable=False, index=True
-    )
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False, index=True)
 
     created_at: Mapped[dt.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
@@ -40,9 +39,7 @@ class Link(Base):
         onupdate=func.now(),
         nullable=False,
     )
-    expires_at: Mapped[dt.datetime | None] = mapped_column(
-        DateTime(timezone=True), nullable=True
-    )
+    expires_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     # Denormalised counter for cheap reads; analytics rows remain the source of truth.
     click_count: Mapped[int] = mapped_column(BigInteger, default=0, nullable=False)
@@ -53,9 +50,7 @@ class Link(Base):
         passive_deletes=True,
     )
 
-    __table_args__ = (
-        Index("ix_links_active_created", "is_active", "created_at"),
-    )
+    __table_args__ = (Index("ix_links_active_created", "is_active", "created_at"),)
 
     @property
     def is_expired(self) -> bool:
@@ -98,9 +93,7 @@ class Click(Base):
 
     link: Mapped[Link] = relationship(back_populates="clicks")
 
-    __table_args__ = (
-        Index("ix_clicks_link_created", "link_id", "created_at"),
-    )
+    __table_args__ = (Index("ix_clicks_link_created", "link_id", "created_at"),)
 
     def __repr__(self) -> str:  # pragma: no cover - debug helper
         return f"<Click link_id={self.link_id} at={self.created_at}>"

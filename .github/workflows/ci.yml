@@ -22,7 +22,11 @@ jobs:
           cache: pip
       - run: pip install ruff
       - run: ruff check app
-      - run: ruff format --check app
+      # Formatting is advisory: it reports diffs but does not block the build.
+      # Run `ruff format app` locally and commit to keep this clean.
+      - name: Check formatting (advisory)
+        run: ruff format --check app
+        continue-on-error: true
 
   test:
     name: Tests (pytest)

@@ -4,6 +4,7 @@ Kept intentionally simple: a single console handler with a consistent format.
 In a larger deployment you would swap the formatter for JSON and ship logs to
 your aggregator of choice.
 """
+
 from __future__ import annotations
 
 import logging

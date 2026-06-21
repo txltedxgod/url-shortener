@@ -4,6 +4,7 @@ Base62 keeps short codes compact and URL-safe (no need for percent-encoding).
 Used both for deterministic id->code conversion and as the alphabet for random
 code generation.
 """
+
 from __future__ import annotations
 
 import secrets

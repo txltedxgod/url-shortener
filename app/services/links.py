@@ -1,4 +1,5 @@
 """Business logic for creating, resolving and managing links."""
+
 from __future__ import annotations
 
 import datetime as dt
@@ -28,9 +29,7 @@ class LinkNotFoundError(Exception):
 async def create_link(session: AsyncSession, payload: ShortenRequest) -> Link:
     expires_at: dt.datetime | None = None
     if payload.ttl_seconds:
-        expires_at = dt.datetime.now(dt.UTC) + dt.timedelta(
-            seconds=payload.ttl_seconds
-        )
+        expires_at = dt.datetime.now(dt.UTC) + dt.timedelta(seconds=payload.ttl_seconds)
 
     original_url = str(payload.url)
 
@@ -91,9 +90,7 @@ async def resolve_code(session: AsyncSession, code: str) -> str | None:
 
     ttl = settings.cache_ttl_seconds
     if link.expires_at is not None:
-        remaining = int(
-            (link.expires_at - dt.datetime.now(dt.UTC)).total_seconds()
-        )
+        remaining = int((link.expires_at - dt.datetime.now(dt.UTC)).total_seconds())
         if remaining <= 0:
             return None
         ttl = min(ttl, remaining)
@@ -109,9 +106,7 @@ async def get_link(session: AsyncSession, code: str) -> Link:
     return link
 
 
-async def list_links(
-    session: AsyncSession, *, limit: int, offset: int
-) -> tuple[list[Link], int]:
+async def list_links(session: AsyncSession, *, limit: int, offset: int) -> tuple[list[Link], int]:
     total = await session.scalar(select(func.count()).select_from(Link)) or 0
     rows = (
         await session.scalars(

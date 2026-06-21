@@ -1,4 +1,5 @@
 """The hot path: resolving a short code and redirecting."""
+
 from __future__ import annotations
 
 from fastapi import APIRouter, BackgroundTasks, Depends, Request, status

@@ -1,4 +1,5 @@
 """Short-code generation with collision detection."""
+
 from __future__ import annotations
 
 from sqlalchemy import select
@@ -32,9 +33,7 @@ async def generate_unique_code(session: AsyncSession) -> str:
         candidate = base62.random_code(length)
         if not await _code_exists(session, candidate):
             return candidate
-    raise CodeGenerationError(
-        "could not generate a unique short code; increase SHORTCODE_LENGTH"
-    )
+    raise CodeGenerationError("could not generate a unique short code; increase SHORTCODE_LENGTH")
 
 
 async def alias_available(session: AsyncSession, alias: str) -> bool:

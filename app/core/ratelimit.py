@@ -4,6 +4,7 @@ Implemented with a sorted set per client: each request is a member scored by
 its timestamp. Old entries are trimmed, the window is counted, and a TTL keeps
 memory bounded. The whole check is a single atomic Lua script to avoid races.
 """
+
 from __future__ import annotations
 
 import time

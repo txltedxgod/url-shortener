@@ -1,4 +1,5 @@
 """QR code generation for short links."""
+
 from __future__ import annotations
 
 import io

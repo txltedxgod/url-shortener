@@ -1,4 +1,5 @@
 """Custom middleware: rate limiting and request id."""
+
 from __future__ import annotations
 
 import uuid

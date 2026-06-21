@@ -3,6 +3,7 @@
 Uses pydantic-settings so configuration is validated at startup and fails fast
 if something is misconfigured in production.
 """
+
 from __future__ import annotations
 
 from functools import lru_cache

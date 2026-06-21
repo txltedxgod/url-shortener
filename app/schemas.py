@@ -1,4 +1,5 @@
 """Pydantic request/response schemas."""
+
 from __future__ import annotations
 
 import datetime as dt
@@ -17,8 +18,17 @@ from app.config import settings
 _ALIAS_RE = re.compile(r"^[A-Za-z0-9_-]+$")
 # Aliases that would collide with real API routes.
 _RESERVED_ALIASES = {
-    "api", "shorten", "docs", "redoc", "openapi.json", "health",
-    "static", "admin", "dashboard", "favicon.ico", "qr",
+    "api",
+    "shorten",
+    "docs",
+    "redoc",
+    "openapi.json",
+    "health",
+    "static",
+    "admin",
+    "dashboard",
+    "favicon.ico",
+    "qr",
 }
 
 
@@ -51,9 +61,7 @@ class ShortenRequest(BaseModel):
                 f"{settings.alias_max_length} characters"
             )
         if not _ALIAS_RE.match(value):
-            raise ValueError(
-                "alias may only contain letters, digits, '-' and '_'"
-            )
+            raise ValueError("alias may only contain letters, digits, '-' and '_'")
         if value.lower() in _RESERVED_ALIASES:
             raise ValueError("alias is reserved")
         return value

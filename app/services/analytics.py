@@ -1,4 +1,5 @@
 """Click recording and analytics aggregation."""
+
 from __future__ import annotations
 
 import datetime as dt
@@ -51,9 +52,7 @@ async def record_click(ctx: ClickContext) -> None:
             )
             session.add(click)
             await session.execute(
-                update(Link)
-                .where(Link.id == ctx.link_id)
-                .values(click_count=Link.click_count + 1)
+                update(Link).where(Link.id == ctx.link_id).values(click_count=Link.click_count + 1)
             )
             await session.commit()
     except Exception:  # pragma: no cover - background safety net
@@ -96,13 +95,9 @@ async def build_analytics(
 ) -> AnalyticsBundle:
     """Aggregate analytics for a single link over a time window."""
     since = dt.datetime.now(dt.UTC) - dt.timedelta(days=days)
-    base = select(Click).where(
-        Click.link_id == link.id, Click.created_at >= since
-    ).subquery()
+    base = select(Click).where(Click.link_id == link.id, Click.created_at >= since).subquery()
 
-    total = await session.scalar(
-        select(func.count()).select_from(base)
-    )
+    total = await session.scalar(select(func.count()).select_from(base))
     unique = await session.scalar(
         select(func.count(func.distinct(base.c.ip_address))).select_from(base)
     )

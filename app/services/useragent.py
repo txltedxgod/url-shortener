@@ -3,6 +3,7 @@
 Thin wrapper around the `user-agents` library with a graceful fallback so a
 malformed or missing UA string never breaks click tracking.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
