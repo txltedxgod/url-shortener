@@ -5,7 +5,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791)
 ![Redis](https://img.shields.io/badge/Redis-7-DC382D)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
-![CI](https://github.com/txltedxgod/url-shortener/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/txltedxgod/url-shortener/actions/workflows/ci.yml/badge.svg?branch=main)
 
 Production-grade URL shortening service with click analytics, built with **FastAPI (async)**, **PostgreSQL**, **SQLAlchemy 2.0 + Alembic**, and **Redis** (caching + rate limiting). Ships with a single-page vanilla JS dashboard (dark/light theme, Chart.js) and full Docker tooling.
 
