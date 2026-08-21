@@ -1,22 +1,19 @@
 ---
-name: Feature request
-about: Suggest an idea or improvement
-title: "[feat] "
-labels: enhancement
+name: Feature Request
+about: Suggest an idea or architectural improvement
+title: '[FEAT] '
+labels: 'enhancement'
+assignees: ''
 ---
 
-## Problem
+## Problem Statement
+Is your feature request related to a problem? Please describe.
 
-What problem would this feature solve?
+## Proposed Solution
+A clear and concise description of what you want to happen.
 
-## Proposed solution
+## Alternatives Considered
+A clear and concise description of any alternative solutions or features you've considered.
 
-How you imagine it working.
-
-## Alternatives considered
-
-Any alternative approaches.
-
-## Additional context
-
-Links, mockups, references.
+## Additional Context
+Add any other context, benchmarks, or diagrams here.
