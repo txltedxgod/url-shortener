@@ -1,30 +1,22 @@
 ---
-name: Bug report
-about: Report something that is not working as expected
-title: "[bug] "
-labels: bug
+name: Bug Report
+about: Create a report to help us improve
+title: '[BUG] '
+labels: 'bug'
+assignees: ''
 ---
 
 ## Description
+A clear and concise description of what the bug is.
 
-A clear and concise description of the bug.
+## Steps to Reproduce
+1. Run command '...'
+2. Set configuration '...'
+3. See error
 
-## Steps to reproduce
+## Expected Behavior
+A clear and concise description of what you expected to happen.
 
-1. ...
-2. ...
-3. ...
-
-## Expected behaviour
-
-What you expected to happen.
-
-## Actual behaviour
-
-What actually happened (include logs / status codes if relevant).
-
-## Environment
-
-- Deployment: [docker compose / local]
-- Version / commit:
-- OS:
+## Environment:
+- OS: [e.g. Ubuntu 22.04 / macOS / Windows]
+- Version / Commit: [e.g. v1.0.0]
