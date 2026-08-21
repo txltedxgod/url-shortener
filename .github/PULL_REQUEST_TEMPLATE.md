@@ -1,26 +1,16 @@
-## Summary
+## Overview
+Provide a brief summary of the changes introduced in this Pull Request.
 
-<!-- What does this PR change and why? -->
+## Type of Change
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to change)
+- [ ] Performance optimization / Refactoring
+- [ ] Documentation update
 
-## Type of change
-
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Refactor / tech debt
-- [ ] Documentation
-- [ ] CI / tooling
-
-## Checklist
-
-- [ ] Tests added/updated and passing (`pytest -q`)
-- [ ] Lint passes (`ruff check app`)
-- [ ] Migrations included if the schema changed
-- [ ] README / docs updated if behaviour changed
-
-## How to test
-
-<!-- Steps for a reviewer to verify the change locally. -->
-
-## Related issues
-
-<!-- Closes #123 -->
+## Checklist:
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] New and existing unit tests pass locally with my changes
